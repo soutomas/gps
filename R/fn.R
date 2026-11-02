@@ -163,7 +163,7 @@ gps_sc = function(fdir,path){
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #' GPS check in/out a file or a folder and everything inside
 #'
-#' @param fdir `<chr>` Filename.
+#' @param fdirs `<chr>` A vector of file and folder names.
 #' @param path `<chr>` Location to the Monolix/Simulx project file.
 #' @param io `<chr>` Either "ci", "co" or "unco" for check in, out or undo check out, respectively.
 #' @returns Nothing.
@@ -173,25 +173,32 @@ gps_sc = function(fdir,path){
 #' loc = "CLOU064C1/mas/mas_2/model/pgm_001/mt92414/A02_PopPK_final/pgm"
 #' gps_cio("test.txt",loc,"ci")
 #' }
-gps_cio = function(fdir,path,io=c("ci","co","unco")){
+gps_cio = function(fdirs,path,io=c("ci","co","unco")){
   if(missing(io)) stop("Please indicate check in our out!")
   io = match.arg(io)
   if(io=="ci") cmd = "; gps_ci "
   if(io=="co") cmd = "; gps_co "
   if(io=="unco") cmd = "; cleartool unco -rm "
+  fdirs = fdirs[fdirs!=""]
   base = set_view()
   vob_path = file.path(base,path)
-  if(dir.exists(file.path(vob_path,fdir))) cat("\nDirectory detected!\n")
-  system(paste0("cd ",vob_path,cmd,fdir))
-  if(dir.exists(file.path(vob_path,fdir))){
-    system(paste0("cd ",file.path(vob_path,fdir),cmd,"-r *"))
-  }
+  lapply(
+    fdirs,
+    \(x){
+      if(dir.exists(file.path(vob_path,x))) cat("\nDirectory detected!\n")
+      system(paste0("cd ",vob_path,cmd,x))
+      if(dir.exists(file.path(vob_path,x))){
+        system(paste0("cd ",file.path(vob_path,x),cmd,"-r *"))
+      }
+    }
+  )
+  invisible()
 }
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #' Examine file properties with GPS describe
 #'
-#' @param fnames `<chr>` A vector of filenames.
+#' @param fnames `<chr>` A vector of file names.
 #' @param path `<chr>` Location to the files.
 #' @returns Nothing.
 #' @export

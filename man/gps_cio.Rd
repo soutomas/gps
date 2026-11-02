@@ -4,10 +4,10 @@
 \alias{gps_cio}
 \title{GPS check in/out a file or a folder and everything inside}
 \usage{
-gps_cio(fdir, path, io = c("ci", "co", "unco"))
+gps_cio(fdirs, path, io = c("ci", "co", "unco"))
 }
 \arguments{
-\item{fdir}{\verb{<chr>} Filename.}
+\item{fdirs}{\verb{<chr>} A vector of file and folder names.}
 
 \item{path}{\verb{<chr>} Location to the Monolix/Simulx project file.}
 

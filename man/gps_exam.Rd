@@ -7,7 +7,7 @@
 gps_exam(fnames, path)
 }
 \arguments{
-\item{fnames}{\verb{<chr>} A vector of filenames.}
+\item{fnames}{\verb{<chr>} A vector of file names.}
 
 \item{path}{\verb{<chr>} Location to the files.}
 }

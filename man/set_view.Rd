@@ -7,7 +7,7 @@
 set_view()
 }
 \value{
-\code{base} as a string variable.
+\code{base} variable as a string.
 }
 \description{
 Set 521 view and export the variable
