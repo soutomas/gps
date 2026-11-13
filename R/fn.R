@@ -57,8 +57,8 @@ gps_sc_mlx = function(mlx_run,path){
   # Monolix project
   base = set_view()
   mlx_name = tools::file_path_sans_ext(mlx_run)
-  mlx_path = file.path(base,path)
-  if(missing(path)) mlx_path = getwd()
+  mlx_path = getwd()
+  if(!missing(path)) mlx_path = file.path(base,path)
   mlx_tran = mlx_run
   if(!grepl(".mlxtran",mlx_run)) mlx_tran = paste0(mlx_run,".mlxtran")
   # Mlxtran and result folder
@@ -90,8 +90,8 @@ gps_sc_sim = function(sim_run,path){
   # Simulx project
   base = set_view()
   sim_name = tools::file_path_sans_ext(sim_run)
-  sim_path = file.path(base,path)
-  if(missing(path)) sim_path = getwd()
+  sim_path = getwd()
+  if(!missing(path)) sim_path = file.path(base,path)
   sim_smlx = sim_run
   if(!grepl(".smlx",sim_run)) sim_smlx = paste0(sim_run,".smlx")
   # Simulx and result folder
@@ -128,8 +128,8 @@ gps_cio_mlx = function(mlxs,path,io=c("ci","co"),resonly=FALSE){
   # Monolix project
   base = set_view()
   mlx_name = tools::file_path_sans_ext(mlxs)
-  mlx_path = file.path(base,path)
-  if(missing(path)) mlx_path = getwd()
+  mlx_path = getwd()
+  if(!missing(path)) mlx_path = file.path(base,path)
   mlx_fpath = file.path(mlx_path,mlxs)
   if(!file.exists(mlx_fpath)) stop(paste0("No project found: ",mlx_fpath))
   # Mlxtran/Simulx project file
@@ -157,8 +157,8 @@ gps_cio_mlx = function(mlxs,path,io=c("ci","co"),resonly=FALSE){
 #' }
 gps_sc = function(fdir,path){
   base = set_view()
-  vob_path = file.path(base,path)
-  if(missing(path)) vob_path = getwd()
+  vob_path = getwd()
+  if(!missing(path)) vob_path = file.path(base,path)
   if(dir.exists(file.path(vob_path,fdir))) cat("\nDirectory detected!\n")
   system(paste0("cd ",vob_path,addsc,fdir))
   if(dir.exists(file.path(vob_path,fdir))) system(paste0("cd ",file.path(vob_path,dir),addscr))
@@ -185,8 +185,8 @@ gps_cio = function(fdirs,path,io=c("ci","co","unco")){
   if(io=="unco") cmd = "; cleartool unco -rm "
   fdirs = fdirs[fdirs!=""]
   base = set_view()
-  vob_path = file.path(base,path)
-  if(missing(path)) vob_path = getwd()
+  vob_path = getwd()
+  if(!missing(path)) vob_path = file.path(base,path)
   lapply(
     fdirs,
     \(x){
@@ -215,8 +215,8 @@ gps_cio = function(fdirs,path,io=c("ci","co","unco")){
 gps_exam = function(fnames,path){
   base = set_view()
   fnames = fnames[fnames!=""]
-  vob_path = file.path(base,path)
-  if(missing(path)) vob_path = getwd()
+  vob_path = getwd()
+  if(!missing(path)) vob_path = file.path(base,path)
   cmd = '; gps_describe '
   lapply(fnames, \(x) system(paste0("cd ",vob_path,paste0(cmd,x))))
   invisible()
@@ -237,8 +237,8 @@ gps_exam = function(fnames,path){
 gps_qc_ready = function(fnames,path){
   base = set_view()
   fnames = fnames[fnames!=""]
-  vob_path = file.path(base,path)
-  if(missing(path)) vob_path = getwd()
+  vob_path = getwd()
+  if(!missing(path)) vob_path = file.path(base,path)
   cmd = cmd_qc_ready
   lapply(fnames, \(x) system(paste0("cd ",vob_path,paste0(cmd,x))))
   invisible()
