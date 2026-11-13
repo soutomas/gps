@@ -9,7 +9,7 @@ gps_cio(fdirs, path, io = c("ci", "co", "unco"))
 \arguments{
 \item{fdirs}{\verb{<chr>} A vector of file and folder names.}
 
-\item{path}{\verb{<chr>} Location to the Monolix/Simulx project file.}
+\item{path}{\verb{<chr>} Location to the Monolix/Simulx project file. Default to the working directory.}
 
 \item{io}{\verb{<chr>} Either "ci", "co" or "unco" for check in, out or undo check out, respectively.}
 }

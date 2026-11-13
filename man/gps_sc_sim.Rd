@@ -9,7 +9,7 @@ gps_sc_sim(sim_run, path)
 \arguments{
 \item{sim_run}{\verb{<chr>} Simulx project file name.}
 
-\item{path}{\verb{<chr>} Location to the Simulx project file.}
+\item{path}{\verb{<chr>} Location to the Simulx project file. Default to the working directory.}
 }
 \value{
 Nothing.

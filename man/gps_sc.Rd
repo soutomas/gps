@@ -9,7 +9,7 @@ gps_sc(fdir, path)
 \arguments{
 \item{fdir}{\verb{<chr>} Filename.}
 
-\item{path}{\verb{<chr>} Location to the Monolix/Simulx project file.}
+\item{path}{\verb{<chr>} Location to the Monolix/Simulx project file. Default to the working directory.}
 }
 \value{
 Nothing.

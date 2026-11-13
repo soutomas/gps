@@ -9,7 +9,7 @@ gps_cio_mlx(mlxs, path, io = c("ci", "co"), resonly = FALSE)
 \arguments{
 \item{mlxs}{\verb{<chr>} Monolix/Simulx project file name ending with either .mlxtran or .smlx.}
 
-\item{path}{\verb{<chr>} Location to the Monolix/Simulx project file.}
+\item{path}{\verb{<chr>} Location to the Monolix/Simulx project file. Default to the working directory.}
 
 \item{io}{\verb{<chr>} Either "ci" or "co" for check in or out, respectively.}
 

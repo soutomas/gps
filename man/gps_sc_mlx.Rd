@@ -9,7 +9,7 @@ gps_sc_mlx(mlx_run, path)
 \arguments{
 \item{mlx_run}{\verb{<chr>} Monolix project file name.}
 
-\item{path}{\verb{<chr>} Location to the Monolix project file.}
+\item{path}{\verb{<chr>} Location to the Monolix project file. Default to the working directory.}
 }
 \value{
 Nothing.

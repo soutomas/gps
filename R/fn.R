@@ -45,7 +45,7 @@ cmd_qc_ready = '; echo yes | gps_promote_ready_for_qc.sh -gps_comment "Ready_for
 #' Add Monolix Project with results to source control on GPS
 #'
 #' @param mlx_run `<chr>` Monolix project file name.
-#' @param path `<chr>` Location to the Monolix project file.
+#' @param path `<chr>` Location to the Monolix project file. Default to the working directory.
 #' @returns Nothing.
 #' @export
 #' @examples
@@ -58,6 +58,7 @@ gps_sc_mlx = function(mlx_run,path){
   base = set_view()
   mlx_name = tools::file_path_sans_ext(mlx_run)
   mlx_path = file.path(base,path)
+  if(missing(path)) mlx_path = getwd()
   mlx_tran = mlx_run
   if(!grepl(".mlxtran",mlx_run)) mlx_tran = paste0(mlx_run,".mlxtran")
   # Mlxtran and result folder
@@ -77,7 +78,7 @@ gps_sc_mlx = function(mlx_run,path){
 #' Add Simulx project with results to SC
 #'
 #' @param sim_run `<chr>` Simulx project file name.
-#' @param path `<chr>` Location to the Simulx project file.
+#' @param path `<chr>` Location to the Simulx project file. Default to the working directory.
 #' @returns Nothing.
 #' @export
 #' @examples
@@ -90,6 +91,7 @@ gps_sc_sim = function(sim_run,path){
   base = set_view()
   sim_name = tools::file_path_sans_ext(sim_run)
   sim_path = file.path(base,path)
+  if(missing(path)) sim_path = getwd()
   sim_smlx = sim_run
   if(!grepl(".smlx",sim_run)) sim_smlx = paste0(sim_run,".smlx")
   # Simulx and result folder
@@ -107,7 +109,7 @@ gps_sc_sim = function(sim_run,path){
 #' GPS check in/out Monolix/Simulx project
 #'
 #' @param mlxs `<chr>` Monolix/Simulx project file name ending with either .mlxtran or .smlx.
-#' @param path `<chr>` Location to the Monolix/Simulx project file.
+#' @param path `<chr>` Location to the Monolix/Simulx project file. Default to the working directory.
 #' @param io `<chr>` Either "ci" or "co" for check in or out, respectively.
 #' @param resonly `<lgl>` `TRUE` to check the result folder only.
 #' @returns Nothing.
@@ -127,6 +129,7 @@ gps_cio_mlx = function(mlxs,path,io=c("ci","co"),resonly=FALSE){
   base = set_view()
   mlx_name = tools::file_path_sans_ext(mlxs)
   mlx_path = file.path(base,path)
+  if(missing(path)) mlx_path = getwd()
   mlx_fpath = file.path(mlx_path,mlxs)
   if(!file.exists(mlx_fpath)) stop(paste0("No project found: ",mlx_fpath))
   # Mlxtran/Simulx project file
@@ -144,7 +147,7 @@ gps_cio_mlx = function(mlxs,path,io=c("ci","co"),resonly=FALSE){
 #' Add a file or a folder and everything inside to source control
 #'
 #' @param fdir `<chr>` Filename.
-#' @param path `<chr>` Location to the Monolix/Simulx project file.
+#' @param path `<chr>` Location to the Monolix/Simulx project file. Default to the working directory.
 #' @returns Nothing.
 #' @export
 #' @examples
@@ -155,6 +158,7 @@ gps_cio_mlx = function(mlxs,path,io=c("ci","co"),resonly=FALSE){
 gps_sc = function(fdir,path){
   base = set_view()
   vob_path = file.path(base,path)
+  if(missing(path)) vob_path = getwd()
   if(dir.exists(file.path(vob_path,fdir))) cat("\nDirectory detected!\n")
   system(paste0("cd ",vob_path,addsc,fdir))
   if(dir.exists(file.path(vob_path,fdir))) system(paste0("cd ",file.path(vob_path,dir),addscr))
@@ -164,7 +168,7 @@ gps_sc = function(fdir,path){
 #' GPS check in/out a file or a folder and everything inside
 #'
 #' @param fdirs `<chr>` A vector of file and folder names.
-#' @param path `<chr>` Location to the Monolix/Simulx project file.
+#' @param path `<chr>` Location to the Monolix/Simulx project file. Default to the working directory.
 #' @param io `<chr>` Either "ci", "co" or "unco" for check in, out or undo check out, respectively.
 #' @returns Nothing.
 #' @export
@@ -182,6 +186,7 @@ gps_cio = function(fdirs,path,io=c("ci","co","unco")){
   fdirs = fdirs[fdirs!=""]
   base = set_view()
   vob_path = file.path(base,path)
+  if(missing(path)) vob_path = getwd()
   lapply(
     fdirs,
     \(x){
@@ -199,7 +204,7 @@ gps_cio = function(fdirs,path,io=c("ci","co","unco")){
 #' Examine file properties with GPS describe
 #'
 #' @param fnames `<chr>` A vector of file names.
-#' @param path `<chr>` Location to the files.
+#' @param path `<chr>` Location to the files. Default to the working directory.
 #' @returns Nothing.
 #' @export
 #' @examples
@@ -211,6 +216,7 @@ gps_exam = function(fnames,path){
   base = set_view()
   fnames = fnames[fnames!=""]
   vob_path = file.path(base,path)
+  if(missing(path)) vob_path = getwd()
   cmd = '; gps_describe '
   lapply(fnames, \(x) system(paste0("cd ",vob_path,paste0(cmd,x))))
   invisible()
@@ -219,8 +225,8 @@ gps_exam = function(fnames,path){
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #' Promote for QC at the critical level
 #'
-#' @param fnames `<chr>` A vector of filenames.
-#' @param path `<chr>` Location to the files.
+#' @param fnames `<chr>` A vector of file names.
+#' @param path `<chr>` Location to the files. Default to the working directory.
 #' @returns Nothing.
 #' @export
 #' @examples
@@ -232,6 +238,7 @@ gps_qc_ready = function(fnames,path){
   base = set_view()
   fnames = fnames[fnames!=""]
   vob_path = file.path(base,path)
+  if(missing(path)) vob_path = getwd()
   cmd = cmd_qc_ready
   lapply(fnames, \(x) system(paste0("cd ",vob_path,paste0(cmd,x))))
   invisible()
